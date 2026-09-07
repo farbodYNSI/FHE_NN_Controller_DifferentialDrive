@@ -1,0 +1,5 @@
+numpy
+scipy
+torch
+tenseal==0.3.15
+matplotlib

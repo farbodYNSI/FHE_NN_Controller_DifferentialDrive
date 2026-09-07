@@ -1,0 +1,157 @@
+#VRML_SIM R2023b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/appearances/protos/Parquetry.proto"
+
+WorldInfo {
+  basicTimeStep 10
+  contactProperties [
+    ContactProperties {
+      material1 "caster"
+      coulombFriction [
+        0.01
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation 0.4885175381201159 -0.005858548161840259 -0.8725344075522161 3.1625138450565724
+  position 4.904891201452384 -0.5036833719937834 7.482687813825011
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 6 6
+  floorAppearance Parquetry {
+    type "light strip"
+  }
+}
+Robot {
+  translation 0.8272388254514246 -0.0003209980060746363 -0.0015695881066810219
+  rotation -0.0215121590277879 0.022363019136984946 0.9995184452470308 1.5294265124977466
+  children [
+    DEF Body Pose {
+      translation 0 0 0.06
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.3 0.3 1
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.1
+            radius 0.1965
+          }
+        }
+      ]
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 281.82951270394835
+        axis 0 1 0
+        anchor 0 0.1965 0.04445
+      }
+      device [
+        RotationalMotor {
+          name "motor_l"
+        }
+      ]
+      endPoint Solid {
+        translation 3.0931400872238486e-05 0.197077978779982 0.044532272653666855
+        rotation 0.8207358159884386 -0.3997223477919951 0.4081847192503012 1.7648709360568473
+        children [
+          DEF wheel Shape {
+            appearance PBRAppearance {
+              baseColor 0.8 0.2 0.2
+              roughness 1
+              metalness 0
+            }
+            geometry Cylinder {
+              height 0.02
+              radius 0.04445
+            }
+          }
+        ]
+        boundingObject USE wheel
+        physics DEF wheel_physics Physics {
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 281.7848583238233
+        axis 0 1 0
+        anchor 0 -0.1965 0.04445
+      }
+      device [
+        RotationalMotor {
+          name "motor_r"
+        }
+      ]
+      endPoint Solid {
+        translation 5.85045421267856e-06 -0.19708533041019377 0.04450459758075446
+        rotation 0.8054824214203418 -0.41913479591830183 0.41895595428797333 1.7831969905901908
+        children [
+          USE wheel
+        ]
+        name "solid(1)"
+        boundingObject USE wheel
+        physics USE wheel_physics
+      }
+    }
+    Solid {
+      translation 0.15 0 0.015
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.1 0.1 0.1
+            roughness 1
+            metalness 0
+          }
+          geometry Sphere {
+            radius 0.015
+          }
+        }
+      ]
+      name "front caster"
+      contactMaterial "caster"
+      boundingObject Sphere {
+        radius 0.015
+      }
+    }
+    Solid {
+      translation -0.15 0 0.015
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.1 0.1 0.1
+            roughness 1
+            metalness 0
+          }
+          geometry Sphere {
+            radius 0.015
+          }
+        }
+      ]
+      name "rear caster"
+      contactMaterial "caster"
+      boundingObject Sphere {
+        radius 0.015
+      }
+    }
+    GPS {
+    }
+    Compass {
+    }
+  ]
+  boundingObject USE Body
+  physics Physics {
+  }
+  controller "robot_controller"
+  supervisor TRUE
+}
