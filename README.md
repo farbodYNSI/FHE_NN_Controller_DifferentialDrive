@@ -4,7 +4,7 @@ This repository accompanies the paper **"Encrypted Cloud-Based Neural Network Co
 
 Cloud-based robot control can provide access to powerful remote computing resources, but it also creates privacy concerns because sensitive robot states, reference commands, and control outputs may be exposed to the cloud. This work investigates how homomorphic encryption can be used to protect this information while still allowing a remote server to perform neural-network-based control.
 
-The proposed approach uses a compact neural network trained to approximate a classical Kanayama tracking controller. During online operation, the robot computes its tracking features locally, encrypts them using the CKKS homomorphic encryption scheme, and sends them to the server. The server evaluates the neural network directly on the encrypted data without decrypting it, and the encrypted control output is returned to the robot for local decryption and actuation.
+The proposed approach uses a compact neural, with  a quadratic polynomial activation function, to approximate a classical Kanayama tracking controller. During online operation, the robot computes its tracking features locally, encrypts them using the CKKS homomorphic encryption scheme, and sends them to the server. The server evaluates the neural network directly on the encrypted data without decrypting it, and the encrypted control output is returned to the robot for local decryption and actuation.
 
 The framework is implemented in Webots using a client-server architecture and is evaluated by comparing three controller modes:
 
@@ -157,7 +157,7 @@ The Webots Python controller must use a Python environment in which the required
 
 ---
 
-## 2. Collect the Webots training dataset
+## 2. Generate the Webots training dataset
 
 Webots is configured to execute:
 
@@ -439,4 +439,3 @@ scripts/results.py
 ```
 
 ---
-
