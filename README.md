@@ -2,17 +2,23 @@
 
 This repository accompanies the paper **"Encrypted Cloud-Based Neural Network Controller for a Differential-Drive Robot"**.
 
-The experiment studies trajectory tracking for a differential-drive robot using a remote controller. The robot acts as the client: it computes a six-element tracking feature vector from its current state and the reference trajectory, then sends a request to an inference server. Three controller modes are evaluated with the same Webots setup:
+Cloud-based robot control can provide access to powerful remote computing resources, but it also creates privacy concerns because sensitive robot states, reference commands, and control outputs may be exposed to the cloud. This work investigates how homomorphic encryption can be used to protect this information while still allowing a remote server to perform neural-network-based control.
 
-- **Kanayama**: the server evaluates the analytic Kanayama tracking controller.
-- **Plaintext NN**: the server evaluates a neural network trained to imitate the Kanayama controller.
-- **CKKS NN**: the robot encrypts the normalized feature vector with CKKS, the server performs the neural-network inference on encrypted data, and the robot decrypts the returned control command locally.
+The proposed approach uses a compact neural network trained to approximate a classical Kanayama tracking controller. During online operation, the robot computes its tracking features locally, encrypts them using the CKKS homomorphic encryption scheme, and sends them to the server. The server evaluates the neural network directly on the encrypted data without decrypting it, and the encrypted control output is returned to the robot for local decryption and actuation.
 
-The neural network is trained offline from Webots rollouts generated with the Kanayama controller. The final evaluation uses an unseen Lissajous trajectory and compares tracking performance, wheel commands, server processing time, and client-observed round-trip time.
+The framework is implemented in Webots using a client-server architecture and is evaluated by comparing three controller modes:
+
+- **Kanayama controller**: the classical analytic tracking controller.
+- **Plaintext neural network**: the trained neural network evaluated without encryption.
+- **CKKS neural network**: the trained neural network evaluated directly on encrypted data.
+
+The experiments examine both trajectory-tracking performance and the computational cost of encrypted inference.
 
 <img width="1461" height="815" alt="architecture" src="https://github.com/user-attachments/assets/9c3fdfb8-1336-4e8d-9e12-5b6a48c9b4d8" />
 
-*System architecture used in the experiment.*
+*System architecture of the proposed encrypted cloud-based neural controller.*
+
+This repository provides the Webots simulation, dataset generation, neural-network training, client-server inference, and result-analysis code used in the study.
 
 ---
 
